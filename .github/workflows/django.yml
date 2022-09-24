@@ -24,12 +24,12 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r ./docker_tutorial/backend/requirements.txt
+        pip install -r ./backend/requirements.txt
     - name: Format with black
       run: |
         pip install black
         # format the files with black
-        cd ./docker_tutorial/backend/
+        cd ./backend/
         black .
     - name: Lint with flake8
       run: |
@@ -42,17 +42,17 @@ jobs:
       run: |
         pip install isort
         # stop the build if there are Python syntax errors or undefined names
-        cd ./docker_tutorial/backend/
+        cd ./backend/
         isort .
         isort --check --diff .
     - name: Run tests
       run: |
-          cd ./docker_tutorial/backend/
+          cd ./backend/
           pytest
     - name: Generate Report
       run: |
         pip install coverage
-        cd ./docker_tutorial/backend
+        cd ./backend
         pwd
         ls -al
         coverage run -m pytest
@@ -61,7 +61,7 @@ jobs:
       uses: codecov/codecov-action@v2
     - name: Code Coverage
       run:  |
-          cd ./docker_tutorial/backend
+          cd ./backend
           curl -Os https://uploader.codecov.io/latest/linux/codecov
           chmod +x codecov
           pwd
