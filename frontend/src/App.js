@@ -11,6 +11,7 @@ import Temperatures from './pages/global_temperatures';
 import Variables from './pages/variables_cc';
 
 function App() {
+
 return (
 	<Router>
 	<Navbar />
@@ -24,6 +25,7 @@ return (
 	</Routes>
 	</Router>
 );
+
 }
 
 export default App;
