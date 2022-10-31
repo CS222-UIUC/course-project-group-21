@@ -4,10 +4,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 from statsmodels.tsa.seasonal import seasonal_decompose
 import seaborn as sns
+import os
 
 def climate_change_visualization():
     # read csv file into dataframe
-    df = pd.read_csv("/Users/aashi/Desktop/cs222/course-project-group-21/backend/GlobalLandTemperaturesByState.csv")
+
+    df = pd.read_csv(os.path.abspath("course-project-group-21/backend/GlobalLandTemperaturesByState.csv"))
 
     # removes rows with null values
     df = df.dropna(how = 'any', axis = 0)
