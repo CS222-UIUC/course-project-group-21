@@ -32,3 +32,4 @@ def climate_change_visualization():
 
      plt.figure(figsize=(10,5))
      sns.lineplot(x = "Year", y = "Average Temperature", data=df)
+
