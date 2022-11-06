@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import WeatherApp from './WeatherApp';
+import TodoApp from './TodoApp'
 import reportWebVitals from './reportWebVitals';
+
+// Coding flair
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <WeatherApp />
+    <TodoApp />
   </React.StrictMode>
 );
 
