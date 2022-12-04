@@ -37,7 +37,7 @@ end = len(sea_level)
 sea_level['datetime'] = sea_level.index
 cut_sea_level = sea_level[start:end]
 cut_sea_level.reset_index(inplace=True, drop=True)
-
+print(cut_sea_level)
 
 toconcat = pd.DataFrame()
 for i in prev_list :
@@ -63,35 +63,24 @@ train_size = 0.8
 test_size = 0.1
 valid_size = 0.1
 whole_data = feature_added.reset_index(drop=True).to_numpy()
-test_part= whole_data[ int(np.floor(len(whole_data)*(train_size+valid_size))) : ]
+test_part= whole_data[int(np.floor(len(whole_data)*(train_size+valid_size))) :]
 else_part = whole_data[ : int(np.floor(len(whole_data)*(train_size+valid_size)))]
 train_part = else_part[ : int(np.floor(len(else_part)*(1-valid_size))) ]
 valid_part = else_part[ int(np.floor(len(else_part)*(1-valid_size))) : ]
 train_input, train_res = train_part[:, 1:], train_part[:, 0]
 valid_input, valid_res = valid_part[:, 1:], valid_part[:, 0]
-test_inpud, test_res = test_part[:, 1:], test_part[:, 0]
-
-
-## normalized data
-Target_scaler = MinMaxScaler()
-Feature_scaler = MinMaxScaler()
-
-X_train_scaled = Feature_scaler.fit_transform(train_input)
-X_valid_scaled = Feature_scaler.fit_transform(valid_input)
-X_test_scaled = Feature_scaler.fit_transform(test_inpud)
-
-y_train_scaled = Target_scaler.fit_transform(train_res.reshape(-1,1))
-y_valid_scaled = Target_scaler.fit_transform(valid_res.reshape(-1,1))
-y_test_scaled = Target_scaler.fit_transform(test_res.reshape(-1,1))
+test_input, test_res = test_part[:, 1:], test_part[:, 0]
 
 ## train model
-model.fit(x=X_train_scaled, y=y_train_scaled, batch_size=10, epochs=30, verbose=1, validation_data=(X_valid_scaled, y_valid_scaled), shuffle=True)
-output = model.predict(X_test_scaled)
-rescaled_output = Target_scaler.inverse_transform(output)
-y_test_rescaled =  Target_scaler.inverse_transform(y_test_scaled)
-level_fact = pd.DataFrame(y_test_rescaled, columns=['Actual sea level'])
+# model.fit(x=train_input, y=train_res, batch_size=10, epochs=30, verbose=0, validation_data=(valid_input, valid_res), shuffle=True)
+# model.save('./time_series_sea_model')
 
-level_pred = pd.DataFrame(rescaled_output, columns=['Predicted sea level'])
+# this loads the model
+model = keras.models.load_model('./time_series_sea_model')
+output = model.predict(test_input)
+level_fact = pd.DataFrame(test_res, columns=['Actual sea level'])
+
+level_pred = pd.DataFrame(output, columns=['Predicted sea level'])
 plt.figure(figsize=(10, 5))
 plt.plot(level_fact, color='r')
 plt.plot(level_pred, color='b')
@@ -99,8 +88,32 @@ plt.plot(level_pred, color='b')
 plt.legend(['Actual','Predicted'], loc='best', prop={'size': 14})
 plt.title('sea level prediction vs actual', weight='bold', fontsize=16)
 plt.ylabel('GMSL(mm)', weight='bold', fontsize=14)
-plt.xlabel('Days after', weight='bold', fontsize=14)
+plt.xlabel('Months after', weight='bold', fontsize=14)
 plt.xticks(weight='bold')
 plt.yticks(weight='bold')
 plt.grid(color = 'y', linewidth='0.5')
 plt.show()
+## One issue here is the future month is calculated started 2014/01, so it may requires some changes from now.
+def future_sea_level_prediction(future_month):
+    assert(future_month > 0)
+    output = []
+    cur_batch = test_input[-1:]
+    for i in range(future_month):
+        pred = model.predict(cur_batch,verbose = 0)[0,0]
+        output.append(pred)
+        updated_part = np.append(cur_batch[0,1:],pred)
+        cur_batch[0,:] = updated_part
+    level_pred = pd.DataFrame(output, columns=['Actual sea level'])
+    plt.figure(figsize=(10, 5))
+    plt.plot(level_pred, color='b')
+    plt.legend(['Predicted sea level'], loc='best', prop={'size': 14})
+    plt.title('sea level prediction in future', weight='bold', fontsize=16)
+    plt.ylabel('GMSL(mm)', weight='bold', fontsize=14)
+    plt.xlabel('Months after', weight='bold', fontsize=14)
+    plt.xticks(weight='bold')
+    plt.yticks(weight='bold')
+    plt.grid(color = 'y', linewidth='0.5')
+    plt.show()
+# example use of this function
+# a large number may result in a lont time calculation
+future_sea_level_prediction(500)
