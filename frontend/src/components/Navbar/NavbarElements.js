@@ -3,28 +3,37 @@ import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Nav = styled.nav`
-background: #323aa8;
-height: 85px;
+font-family: 'Roboto';
+background: #272b63;
+align-items: center;
+// text-align: center;
+// border-radius: 7px;
+height: 100px;
 display: flex;
+align: center;
 justify-content: space-between;
-padding: 0.2rem calc((100vw - 1000px) / 2);
 z-index: 12;
 `;
 
 export const NavLink = styled(Link)`
+align-items: center;
+font-family: 'RobotoLight';
+font-size: 20px;
 color: #ffffff;
 display: flex;
 align-items: center;
 text-decoration: none;
-padding: 0 1rem;
+padding: 1rem;
 height: 100%;
 cursor: pointer;
 &.active {
-	color: #4d4dff;
+	color: #64eded;
+	text-decoration: underline;
 }
 `;
 
 export const Bars = styled(FaBars)`
+font-family: 'Roboto';
 display: none;
 color: #808080;
 @media screen and (max-width: 768px) {
@@ -39,9 +48,11 @@ color: #808080;
 `;
 
 export const NavMenu = styled.div`
+font-family: 'Roboto';
+
 display: flex;
 align-items: center;
-margin-right: -24px;
+// margin-right: -24px;
 /* Second Nav */
 /* margin-right: 24px; */
 /* Third Nav */
