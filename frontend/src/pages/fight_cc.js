@@ -10,7 +10,6 @@ const Fight = () => {
         <h4>1. Pressure, pressure, pressure</h4>
         <p>
           The most important part of public change is public participation.
-          The top 5 negative contributors to climate change are Agriculture, Transportation, Construction, Manufacturing, and Husbandry.
           Join organizations like Count Us In, which aims to inspire 1 billion people to challenge their leaders to act more boldly on climate.
           Another option is to join the UN's #ActNow campaign on climate change and sustainability.
         </p>
@@ -26,10 +25,9 @@ const Fight = () => {
           As for the consumption side of things, eco-friendly products, foods, and eco-friendly investments.
         </p>
       </div>
-      <p>References:</p>
+      <h4>References:</h4>
       <p>https://www.unep.org/news-and-stories/story/10-ways-you-can-help-fight-climate-crisis</p>
       <p>https://www.greenamerica.org/your-green-life/10-ways-you-can-fight-climate-change</p>
-      <p>https://www.co2nsensus.com/blog/sectors-contributing-to-global-warming</p>
     </div>
   );
 };

@@ -26,7 +26,7 @@ const Beliefs = () => {
       <div>
         <img src={survey} alt="Survey done by Pew Research Center"/>
       </div>
-      <p>Reference:</p>
+      <h4>Reference:</h4>
       <p>https://www.pewresearch.org/science/2019/11/25/u-s-public-views-on-climate-and-energy/</p>
     </div>
   );

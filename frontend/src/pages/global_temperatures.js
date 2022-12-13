@@ -21,7 +21,7 @@ const Temperatures = () => {
         The current 2030 targets expect temperatures to rise by 2.4 degrees Celsius, while the most optimistic projections resulted in around 1.8 degrees of warming.
         Greenhouse gases must be significantly reduced in the 2020s and 2030s in order to achieve an average warming of 1.5 degrees Celsius by 2100.
       </p>
-      <p>Reference:</p>
+      <h4>Reference:</h4>
       <p>https://climateactiontracker.org/global/temperatures/#:~:text=Current%20policies%20presently%20in%20place,C%20above%20pre-industrial%20levels.</p>
     </div>
   );

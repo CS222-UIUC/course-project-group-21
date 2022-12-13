@@ -24,7 +24,7 @@ const Ice = () => {
       <div>
         <img src={visual} alt="Change In Arctic Sea Ice"/>
       </div>
-      <p>Reference:</p>
+      <h4>Reference:</h4>
       <p>https://www.arcus.org/sipn/sea-ice-outlook/2022/post-season</p>
     </div>
   );
